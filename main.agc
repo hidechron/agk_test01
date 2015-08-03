@@ -1,7 +1,7 @@
 
 // Project: test01 
 // Created: 2015-07-21
-#option_explicit
+//#option_explicit
 #include "init.agc"
 #include "helpers.agc"
 #include "playing.agc"
@@ -29,8 +29,6 @@ debug$ = makeAtlasTxt()
 
 
 dim img[899]
-i as integer = 0
-j as integer = 0
 for i=0 to 899
 	img[i] = LoadSubImage(image,"img"+str(i))
 next i
@@ -60,6 +58,7 @@ do
 			if (once[0] = 0)
 				
 				testo as spriteGroup
+				testo.name = "test"
 				testo.sprlist.insert(makeSprite(img[19], 100, 100))
 				testo.sprlist.insert(makeSprite(img[1], 100, 150))
 				
