@@ -7,9 +7,9 @@ FILE_3=helpers.agc;-1
 FILE_4=playing.agc;-1
 
 [files]
-FILE_NAME_0=0;main.agc;686;0
+FILE_NAME_0=1;main.agc;854;0
 FILE_NAME_1=0;init.agc;323;2
-FILE_NAME_2=1;playing.agc;1336;1
+FILE_NAME_2=0;playing.agc;1389;1
 
 [project]
 description=

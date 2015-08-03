@@ -31,6 +31,7 @@ debug$ = makeAtlasTxt()
 dim img[899]
 for i=0 to 899
 	img[i] = LoadSubImage(image,"img"+str(i))
+	SetImageTransparentColor(img[i], 94, 129, 162)
 next i
 
 var# as float = 0.6
@@ -59,8 +60,8 @@ do
 				
 				testo as spriteGroup
 				testo.name = "test"
-				testo.sprlist.insert(makeSprite(img[19], 100, 100))
-				testo.sprlist.insert(makeSprite(img[1], 100, 150))
+				testo.sprlist.insert(makeSprite(img[19], 100, 100, 1))
+				testo.sprlist.insert(makeSprite(img[1], 100, 150, 1))
 				
 				remstart menu_bg as spriteGroup
 				for i=1 to GetScreenBoundsBottom() step GetImageHeight(bg_button)+1
@@ -87,6 +88,7 @@ do
 		//=========================================
 		case INITGAME:
 			loadplay()
+			drawAll()
 		endcase
 		//=========================================
 		case PLAY:
@@ -94,14 +96,15 @@ do
 		endcase
 		//=========================================
 		case TEST:
-			for i=0 to drawStuff.length
+			remstart for i=0 to drawStuff.length
 				for j=0 to drawStuff[i].sprlist.length
 					SetSpritePosition(drawStuff[i].sprlist[j].ID, 
 										drawStuff[i].sprlist[j].X, drawStuff[i].sprlist[j].Y)
 					SetSpriteVisible(drawStuff[i].sprlist[j].ID, 1)
 				next j
 			next i
-			
+			remend
+			drawAll()
 			checkMode()
 		endcase
 		//=========================================
@@ -110,6 +113,15 @@ do
     Sync()
 loop
 
+function drawAll()
+	for i=0 to drawStuff.length
+		for j=0 to drawStuff[i].sprlist.length
+			SetSpritePosition(drawStuff[i].sprlist[j].ID, 
+								drawStuff[i].sprlist[j].X, drawStuff[i].sprlist[j].Y)
+			//SetSpriteVisible(drawStuff[i].sprlist[j].ID, 1)
+		next j
+	next i
+endfunction
 
 function checkMode()
 	if (GetRawKeyReleased(112))
@@ -120,13 +132,16 @@ function checkMode()
 	endif
 endfunction
 
-function makeSprite(imag, x, y)
+function makeSprite(imag, x, y, visible)
 	tempSprite as sprite
 	tempSprite.ID = createSprite(imag)
 	tempSprite.X = x
 	tempSprite.Y = y
-	SetSpriteVisible(tempSprite.ID, 0)
+	SetSpritePosition(tempSprite.ID, x, y)
+	SetSpriteVisible(tempSprite.ID, visible)
 endfunction tempSprite
+
+// TYPES TYPES TYPES TYPES TYPES TYPES TYPES TYPES TYPES
 
 TYPE spriteGroup
 	name as string
